@@ -52,7 +52,7 @@ If the grammar rules is correct and the question can be parsed, all the results 
 ### 5. Result
 ##### Database:
 These information are given from the assignment's description:
- | | | |
+| FLIGHT 	| ARRIVAL TIME 	        | DEPARTURE TIME        |
 |-----------|-----------------------|-----------------------|
 | FLIGHT F1 | ATIME F1 HUE 17:00HR  | DTIME F1 HCMC 15:00HR |
 | FLIGHT F2 | ATIME F2 HCMC 16:00HR | DTIME F2 HUE 14:30HR  |
