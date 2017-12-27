@@ -20,7 +20,7 @@ Here is the simple version with a few grammar rules from the assignment's descri
 There are 4 python files as 4 modules:
 - [main.py](main.py) : The start point of the program.
 - [nlp_parser.py](nlp_parser.py) : Parser module. Include a function that parse logical structure to procedure semantics form.
-- [nlp_database.py](nlp_database.py) : Database module. Define the given dataset and provide lookup function for answering the question.
+- [nlp_data.py](nlp_data.py) : Database module. Define the given dataset and provide lookup function for answering the question.
 - [nlp_file.py](nlp_file.py) : File module. Write answers to text files as required.
 
 Other files:
