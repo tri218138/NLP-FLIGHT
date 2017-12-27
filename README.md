@@ -184,7 +184,7 @@ Result:
 ### 6. Future development
 - Add TENSE (PAST, PRESENT,...) to grammar.
 - Add  -INV, +INV.
-- Add PLURAL/SINGLE comparision to grammar.
+- Add PLURAL/SINGLE comparison to grammar.
 - More regulization to handle more questions.
 - Vietnamese support?!?.
 ### 7. License
