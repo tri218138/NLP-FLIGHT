@@ -10,7 +10,26 @@ The input is a question in natural language (English). The question will be anal
 
 With a query as the above procedure semantics form, the system will lookup in the database and return the result of the input question.
 
-Here is the simple version with a few grammar rules from the assignment's description.
+Here is the simple version with below grammar rules from the assignment's description:
+ ```
+S → WH-QUERY FLIGHT-NP FLIGHT-VP
+FLIGHT-NP → DET FLIGHT-CNP
+FLIGHT-NP → FLIGHT-CNP
+FLIGHT-CNP → FLIGHT-N
+FLIGHT-CNP → FLIGHT-CNP FLIGHT-DEST
+FLIGHT-TIME → TIME-MOD │P-TIME TIME-MOD
+FLIGHT-VP → FLIGHT-V
+FLIGHT-VP → FLIGHT-V FLIGHT-TIME
+CITY-NP → CITY-NAME CITY-N
+CITY-NP → DET CITY-N
+FLIGHT-DEST → to CITY-NP
+FLIGHT-DEST→ for CITY-NP
+WH-QUERY → what time │ when does │ which
+DET → the
+FLIGHT-N→ flight
+P-TIME → at │on │in
+CITY-NAME → Hồ Chí Minh │ Huế
+```
 
 ### 2. Prerequisites:
 - Python 3.5
