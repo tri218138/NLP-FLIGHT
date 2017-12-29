@@ -105,17 +105,17 @@ Parsed tree (in [output_b.txt](output_b.txt))
       (TIME-MOD[SEM=<20:00HR>, VAR=<t1>] 20:00HR))))
 ```
 
-Parsed logical form (in [output_c.txt](output_c.txt)
+Parsed logical form (in [output_c.txt](output_c.txt))
 ```
 WHQUERY(ARRIVE1(a3 f2 TIME(t2 20:00HR)) (FLIGHT1(f2) & DEST(f2 NAME(h3 'Hue'))) WH(f2 WHICH1))
 ```
 
-Parsed procedure semantics form (in [output_d.txt](output_d.txt)
+Parsed procedure semantics form (in [output_d.txt](output_d.txt))
 ```
 (PRINT-ALL ?f2(FLIGHT ?f2)(ATIME ?f2 HUE 20:00HR)(DTIME ?f2 ?sd ?td))
 ```
 
-Result (in [output_e.txt](output_e.txt)
+Result (in [output_e.txt](output_e.txt))
 ```
 F3
 ```
@@ -203,8 +203,9 @@ Result:
 ### 6. Future development
 - Add TENSE (PAST, PRESENT,...) to grammar.
 - Add  -INV, +INV.
-- Add PLURAL/SINGLE comparison to grammar.
+- Add PLURAL/SINGULAR comparison to grammar.
 - More regulization to handle more questions.
+- Better grammar rules. Current rules are a little bit confusing.
 - Vietnamese support?!?.
 ### 7. License
 © 2017 Hoàng Lê Hải Thanh (Thanh Hoang Le Hai) aka GhostBB
