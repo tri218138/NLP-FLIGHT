@@ -10,6 +10,7 @@ The input is a question in natural language (English). The question will be anal
 
 With a query as the above procedure semantics form, the system will lookup in the database and return the result of the input question.
 
+
 Here is the simple version with below grammar rules from the assignment's description:
  ```
 S → WH-QUERY FLIGHT-NP FLIGHT-VP
@@ -208,6 +209,8 @@ Result:
 - More regulization to handle more questions.
 - Better grammar rules. Current rules are a little bit confusing.
 - Vietnamese support?!?.
+- Maybe chat bot like this. why not? :)
+![Animated Simulation](images/demo.gif)
 ### 7. License
 
 This project is under [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0) (Inherit from NLTK)
