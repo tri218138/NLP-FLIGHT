@@ -19,7 +19,7 @@ def main(args):
     print("-------------Loading grammar---------------------")
     nlp_grammar = parse.load_parser(args.rule_file_name, trace = 0)
     print("Grammar loaded at {}".format(args.rule_file_name))
-    #write_file(1, str(nlp_grammar.grammar()))
+    write_file(1, str(nlp_grammar.grammar()))
                
     question = args.question
     
@@ -28,19 +28,19 @@ def main(args):
     tree = nlp_grammar.parse_one(question.replace('?','').split())
     print(question)
     print(tree)
-    #write_file(2, str(tree))
+    write_file(2, str(tree))
  
     #Parse to logical form
     print("-------------Parsed logical form-------------")
     logical_form = str(tree.label()['SEM']).replace(',',' ')
     print(logical_form)
-    #write_file(3, str(logical_form))
+    write_file(3, str(logical_form))
                
     #Get procedure semantics
     print("-------------Procedure semantics-------------")
     procedure_semantics = parse_to_procedure(tree)
     print(procedure_semantics['str'])
-    #write_file(4, procedure_semantics['str'])
+    write_file(4, procedure_semantics['str'])
     
     #Retrive result:
     print("-------------Retrieved result-------------")
@@ -51,7 +51,7 @@ def main(args):
         for result in results:
             print(result, end=' ', flush=True)
         print('')
-        #write_file(5, " ".join(results))
+        write_file(5, " ".join(results))
     
     
 if __name__ == '__main__':
