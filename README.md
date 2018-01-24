@@ -210,6 +210,7 @@ Result:
 - Better grammar rules. Current rules are a little bit confusing.
 - Vietnamese support?!?.
 - Maybe chat bot like this. why not? :)
+
 ![Animated Simulation](images/demo.gif)
 ### 7. License
 
