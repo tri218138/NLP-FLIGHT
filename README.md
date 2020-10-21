@@ -1,9 +1,6 @@
-# Natural Language Processing Assignment
-## A Simple Reply System
+# A Simple Reply System (BKU NLP Assignment)
 
-If you are reading the raw README.md, you'd better visit [This GitHub Project](https://github.com/ghostbbbmt/NLP2017_Assignment) to have a better, clearer README :)
-
-### 1. Description
+## 1. Description
 This project is a reply system about flights' information using natural language techniques. 
 
 The input is a question in natural language (English). The question will be analyzed to logical form, then the logical structure is parsed to procedure semantics form.
@@ -32,11 +29,11 @@ P-TIME → at │on │in
 CITY-NAME → Hồ Chí Minh │ Huế
 ```
 
-### 2. Prerequisites:
+## 2. Prerequisites:
 - Python 3.5
 - [NLTK 3.2](http://www.nltk.org)
 
-### 3. System structure
+## 3. System structure
 There are 4 python files as 4 modules:
 - [main.py](main.py) : The start point of the program.
 - [nlp_parser.py](nlp_parser.py) : Parser module. Include a function that parse logical structure to procedure semantics form.
@@ -53,8 +50,8 @@ Some special cases:
  - 1413492.zip : The zip file contains submited project. 
  - [README.md](README.md) : This file, obiviously :)
 
-### 4. Installation
-#### There are two ways of running the program:
+## 4. Installation
+**There are two ways of running the program:**
 Use default arguments:
 ```sh
 $python3 main.py
@@ -69,8 +66,8 @@ Usage:
 
 If the grammar rules is correct and the question can be parsed, all the results of 5 phases (*1.create parser, 2.create parsed tree, 3.create logical form, 4.create procedure semantics form, 5.query result*) will be printed as well as written to files.
 
-### 5. Result
-##### Database:
+## 5. Result
+### Database:
 These information are given from the assignment's description:
 
 | FLIGHT    | ARRIVAL TIME          | DEPARTURE TIME        |
@@ -80,7 +77,7 @@ These information are given from the assignment's description:
 | FLIGHT F3 | ATIME F3 HUE 20:00HR  | DTIME F3 HCMC 18:30HR |
 | FLIGHT F4 | ATIME F4 HCMC 10:00HR | DTIME F4 HUE 8:30HR   |
 
-##### Result of the assignment (default parameters):
+### Result of the assignment (default parameters):
 Question:
 ```
 Which flight to Huế city arrives at 20:00HR ?
@@ -122,8 +119,8 @@ F3
 ```
 ![Result](images/result.png)
 
-##### Other test:
-##### Test 1:
+### Other test:
+#### Test 1:
 Question:
 ```
 Which flight from Hồ Chí Minh city depart at 15:00HR?
@@ -164,7 +161,7 @@ Result:
 F1
 ```
 
-##### Test 2:
+#### Test 2:
 Question:
 ```
 When does the flights to Huế city arrive?
@@ -202,18 +199,14 @@ Result:
 ```
 17:00HR 20:00HR
 ```
-### 6. Future development
+## 6. For further researchs
 - Add TENSE (PAST, PRESENT,...) to grammar.
 - Add  -INV, +INV.
 - Add PLURAL/SINGULAR comparison to grammar.
 - More regulization to handle more questions.
 - Better grammar rules. Current rules are a little bit confusing.
 - Vietnamese support?!?.
-- Maybe chat bot like this. why not? :)
 
-![Animated Simulation](images/demo.gif)
-### 7. License
+## 7. License
 
-This project is under [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0) (Inherit from NLTK)
-
-If there are any problems, contact me at thanhhoang@hcmut.edu.vn
+Free to use as you want. If there are any problems, contact me at thanhhoang@hcmut.edu.vn
