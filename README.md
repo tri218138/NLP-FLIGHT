@@ -46,9 +46,6 @@ Some special cases:
   - VP, NP, N,... have their own VAR variable
   - WHQUERY has GAP
   - VP and some rules have lamda expression
- - [de.txt](de.txt) : The file that contains the question that I completed. Don't care about it.
- - 1413492.zip : The zip file contains submited project. 
- - [README.md](README.md) : This file, obiviously :)
 
 ## 4. Installation
 **There are two ways of running the program:**
