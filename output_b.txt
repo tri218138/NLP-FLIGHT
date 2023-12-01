@@ -1,17 +1,25 @@
-(S[GAP=<f2>, SEM=<WHQUERY(ARRIVE1(a3,f2,TIME(t2,20:00HR)),(FLIGHT1(f2) & DEST(f2,NAME(h3,'Hue'))),WH(f2,WHICH1))>, VAR=<a3>]
-  (WHICH-QUERY[SEM=<\x.WH(x,WHICH1)>] Which)
-  (FLIGHT-NP[SEM=<(FLIGHT1(f3) & DEST(f3,NAME(h2,'Hue')))>, VAR=<f3>]
-    (FLIGHT-CNP[SEM=<(FLIGHT1(f2) & DEST(f2,NAME(h3,'Hue')))>, VAR=<f2>]
-      (FLIGHT-CNP[SEM=<FLIGHT1(f2)>, VAR=<f2>]
-        (FLIGHT-N[SEM=<FLIGHT1>, VAR=<f1>] flight))
-      (FLIGHT-DEST[SEM=<\f.DEST(f,NAME(h2,'Hue'))>, VAR=<h2>]
-        to
-        (CITY-NP[SEM=<NAME(h3,'Hue')>, VAR=<h3>]
-          (CITY-NAME[SEM=<'Hue'>, VAR=<h2>] Huế)
-          (CITY-N[SEM=<CITY>, VAR=<c1>] city)))))
-  (FLIGHT-VP[SEM=<\r f.ARRIVE1(r,f,TIME(t3,20:00HR))>, VAR=<a2>]
-    (FLIGHT-V[SEM=<\r f t.ARRIVE1(r,f,t)>, VAR=<a2>]
-      (ARRIVE-V[SEM=<\r f t.ARRIVE1(r,f,t)>, VAR=<a1>] arrives))
-    (FLIGHT-TIME[SEM=<TIME(t2,20:00HR)>, VAR=<t2>]
-      (P-TIME[SEM=<AT>] at)
-      (TIME-MOD[SEM=<20:00HR>, VAR=<t1>] 20:00HR))))
+(S[SEM=<WHQUERY(WHICH(f2),FLIGHT(f2),SOURCE(CITY('HoChiMinh'),DEST(CITY('DaNang')),IN(TIME('1:00HR'))))>]
+  (S-WHICH[SEM=<WHQUERY(WHICH(f3),FLIGHT(f3),SOURCE(CITY('HoChiMinh'),DEST(CITY('DaNang')),IN(TIME('1:00HR'))))>]
+    (FLIGHT-NP[SEM=<\x.FLIGHT(x)>, VAR=<f2>]
+      (AIRPLANE-N[SEM=<\x.FLIGHT(x)>, VAR=<f1>] máy_bay))
+    (WH-WHICH[SEM=<\x.WHICH(x)>] nào)
+    (FLIGHT-VP[SEM=<SOURCE(CITY('HoChiMinh'),DEST(CITY('DaNang')),IN(TIME('1:00HR')))>, VAR=?v]
+      (FLIGHT-VP[SEM=<SOURCE(CITY('HoChiMinh'),DEST(CITY('DaNang')))>, VAR=?v]
+        (FLIGHT-VP[SEM=<SOURCE(CITY('HoChiMinh'))>, VAR=?v]
+          (FLIGHT-V[] bay)
+          (FLIGHT-PP[SEM=<SOURCE(CITY('HoChiMinh'))>, VAR=?v]
+            (FLIGHT-SOURCE[SEM=<SOURCE(CITY('HoChiMinh'))>]
+              (FLIGHT-V-SOURCE[] (FLIGHT-FROM[] từ))
+              (CITY-NP[SEM=<CITY('HoChiMinh')>, VAR=<c2>]
+                (CITY-N[SEM=<\x.CITY(x)>, VAR=<c1>] TP.)
+                (CITY-NAME[SEM=<'HoChiMinh'>, VAR=<city1>]
+                  Hồ_Chí_Minh)))))
+        (FLIGHT-PP[SEM=<DEST(CITY('DaNang'))>, VAR=?v]
+          (FLIGHT-DEST[SEM=<DEST(CITY('DaNang'))>, VAR=?c]
+            (FLIGHT-V-DEST[] (FLIGHT-TO[] đến))
+            (CITY-NP[SEM=<CITY('DaNang')>, VAR=?c]
+              (CITY-NAME[SEM=<'DaNang'>, VAR=<city1>] Đà_Nẵng)))))
+      (FLIGHT-PP[SEM=<IN(TIME('1:00HR'))>, VAR=?v]
+        (FLIGHT-TIME[SEM=<IN(TIME('1:00HR'))>]
+          (TIME-P[SEM=<IN>, VAR=<t1>] mất)
+          (TIME-MOD[SEM=<'1:00HR'>, VAR=<t1>] 1:00HR))))))

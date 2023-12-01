@@ -1,0 +1,80 @@
+% start S
+S[SEM=?sem] -> S-WHICH[SEM=?sem] | S-WHEN[SEM=?sem] | S-BIN[SEM=?sem]
+S-DEMAND -> 'hãy' 'cho' 'biết'
+
+##### WHICH #####
+S-WHICH[SEM=<WHQUERY(?wh(?n), ?np(?n), ?vp)>] -> FLIGHT-NP[SEM=?np, VAR=?n] WH-WHICH[SEM=?wh] FLIGHT-VP[SEM=?vp]
+S-WHICH[SEM=<WHQUERY(?wh(?n), ?np(?n), ?vp)>] -> S-DEMAND FLIGHT-NP[SEM=?np, VAR=?n, GAP=?wh] FLIGHT-VP[SEM=?vp, GAP=?wh]
+S-WHICH[SEM=<WHQUERY(?wh(?n), ?np, ?vp)>] -> FLIGHT-NP[SEM=?np] FLIGHT-VP[SEM=?vp, VAR=?n] WH-WHICH[SEM=?wh]
+
+WH-WHICH[SEM=<\x.WHICH(x)>] -> 'nào'
+
+##### WHEN #####
+S-WHEN[SEM=<WHQUERY(?wh(?n), ?np, ?vp(?n))>] -> 'thời' 'gian' FLIGHT-NP[SEM=?np] FLIGHT-VP[SEM=?vp, VAR=?n] WH-WHEN[SEM=?wh]
+S-WHEN[SEM=<WHQUERY(?wh(?n), ?np, ?vp(?n))>] -> FLIGHT-NP[SEM=?np] FLIGHT-VP[SEM=?vp, VAR=?n] WH-WHEN[SEM=?wh]
+
+WH-WHEN[SEM=<\x.WHEN(x)>] -> 'bao' 'lâu' | 'mấy' 'giờ'
+
+##### YESNO #####
+S-BIN[SEM=<BINQUERY(?np, ?vp)>] -> FLIGHT-NP[SEM=?np] FLIGHT-VP[SEM=?vp] 'phải' 'không'
+S-BIN[SEM=<BINQUERY(?np, ?vp)>] -> FLIGHT-NP[SEM=?np] 'có' FLIGHT-VP[SEM=?vp] 'không'
+S-BIN[SEM=<BINQUERY(?np, ?vp)>] -> 'có' FLIGHT-NP[SEM=?np] FLIGHT-VP[SEM=?vp] 'không'
+S-BIN[SEM=<BINQUERY(?which)>] -> 'có' S-WHICH[SEM=?which] 'không'
+
+##### FLIGHT-NP #####
+FLIGHT-NP[SEM=?np, VAR=?v] -> AIRPLANE-NP[SEM=?np, VAR=?v]
+FLIGHT-NP[SEM=<?n>, VAR=?v] -> AIRPLANE-N[SEM=?n, VAR=?v]
+FLIGHT-NP[SEM=<?np & ?pp>] -> FLIGHT-NP[SEM=?np] FLIGHT-PP[SEM=?pp]
+FLIGHT-NP[SEM=<FLIGHT>, VAR=<f2>, GAP=<\x.WHICH(x)>] -> 'mã_hiệu' 'các' 'máy_bay'
+FLIGHT-NP[SEM=<FLIGHT(?np)>, VAR=<f2>] -> 'máy_bay' 'của'  AIRLINE-NP[SEM=?np]
+
+AIRLINE-NP[SEM=<AIRLINE(?name)>] -> AIRLINE-NAME[SEM=?name] | AIRLINE-N AIRLINE-NAME[SEM=?name]
+AIRLINE-N[SEM=<\x.AIRLINE(x)>, VAR=<air1>] -> 'hãng_hàng_không'
+AIRLINE-NAME[SEM=<'VietJetAir'>] -> 'VietJet_Air'
+
+AIRPLANE-NP[SEM=<FLIGHT(?name)>] -> AIRPLANE-NAME-ID[SEM=?name] | AIRPLANE-N AIRPLANE-NAME-ID[SEM=?name]
+AIRPLANE-N[SEM=<\x.FLIGHT(x)>, VAR=<f1>] -> 'máy_bay'
+AIRPLANE-NAME-ID[SEM=<'VJ1'>] -> 'VJ1'
+AIRPLANE-NAME-ID[SEM=<'VJ5'>] -> 'VJ5'
+AIRPLANE-NAME-ID[SEM=<'VN4'>] -> 'VN4'
+
+FLIGHT-PP[SEM=?sem, VAR=?v] -> FLIGHT-DEST[SEM=?sem, VAR=?v] | FLIGHT-SOURCE[SEM=?sem, VAR=?v] | FLIGHT-TIME[SEM=?sem, VAR=?v]
+#FLIGHT-PP[SEM=<?pp1 & ?pp2>] -> FLIGHT-PP[SEM=?pp1] FLIGHT-PP[SEM=?pp2]
+
+FLIGHT-DEST[SEM=<DEST(?np)>, VAR=?c] -> 'đến' CITY-NP[SEM=?np, VAR=?c]
+FLIGHT-DEST[SEM=<DEST(?np)>, VAR=?c] -> 'hạ_cánh' 'ở' CITY-NP[SEM=?np, VAR=?c]
+FLIGHT-SOURCE[SEM=<SOURCE(?np)>] -> 'từ' CITY-NP[SEM=?np]
+FLIGHT-SOURCE[SEM=<SOURCE(?np)>] -> 'xuất_phát' 'từ' CITY-NP[SEM=?np]
+
+CITY-NP[SEM=<CITY(?name)>, VAR=?c] -> CITY-NAME[SEM=?name] | CITY-N[VAR=?c] CITY-NAME[SEM=?name]
+CITY-NP[SEM=<?city(?c)>, VAR=?c] -> DET CITY-N[SEM=?city, VAR=?c]
+CITY-N[SEM=<\x.CITY(x)>, VAR=<c1>] -> 'thành_phố' | 'TP.'
+CITY-NAME[SEM=<'KhanhHoa'>,VAR=<city1>] -> 'Khánh_Hòa'
+CITY-NAME[SEM=<'HaNoi'>,VAR=<city1>] -> 'Hà_Nội'
+CITY-NAME[SEM=<'DaNang'>,VAR=<city1>] -> 'Đà_Nẵng'
+CITY-NAME[SEM=<'HaiPhong'>,VAR=<city1>] -> 'Hải_Phòng'
+CITY-NAME[SEM=<'HoChiMinh'>,VAR=<city1>] -> 'Hồ_Chí_Minh' | 'HCMC'
+CITY-NAME[SEM=<'Hue'>,VAR=<city1>] -> 'Huế'
+
+##### FLIGHT-VP #####
+FLIGHT-VP[SEM=?pp, VAR=?v] -> FLIGHT-V FLIGHT-PP[SEM=?pp, VAR=?v]
+FLIGHT-VP[SEM=<?vp & ?pp>, VAR=?v] -> FLIGHT-VP[SEM=?vp, VAR=?v] FLIGHT-PP[SEM=?pp, VAR=?v]
+FLIGHT-VP[SEM=?pp, VAR=?v] -> FLIGHT-PP[SEM=?pp, VAR=?v]
+
+FLIGHT-V -> 'bay'
+
+##### DET #####
+DET -> 'những' | 'cái' | 'chiếc'
+
+##### TIME #####
+FLIGHT-TIME[SEM=<TIME(?tp(?t))>] -> TIME-P[SEM=?tp] TIME-MOD[SEM=?t]
+FLIGHT-TIME[SEM=<TIME(AT(?t))>, VAR=<t1>] -> TIME-MOD[SEM=?t] 
+FLIGHT-TIME[SEM=<\t.TIME(?tp(t))>, VAR=<t1>] -> TIME-P[SEM=?tp]
+
+TIME-P[SEM=<AT>] -> 'lúc'
+TIME-P[SEM=<IN>] -> 'mất'
+TIME-P[SEM=<IN>] -> 'trong'
+
+TIME-MOD[SEM=<'1:00HR'>,VAR=<t1>] -> '1:00HR' | '1' 'giờ'
+TIME-MOD[SEM=<'10:00HR'>,VAR=<t1>] -> '10:00HR'
+TIME-MOD[SEM=<'13:30HR'>,VAR=<t1>] -> '13:30HR'

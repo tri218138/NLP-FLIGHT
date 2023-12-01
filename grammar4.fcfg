@@ -1,0 +1,154 @@
+# Author: Doan Tran Cao Tri
+# University: Ho Chi Minh University of Technology
+# Id: 2010733
+# Contact: tri.doan218138@hcmut.edu.vn
+########################################################################
+# FCFG with SEM
+########################################################################
+
+% start S
+S[SEM=?sem] -> S-WHICH[SEM=?sem] | S-WHEN[SEM=?sem] | S-BIN[SEM=?sem]
+S-DEMAND -> 'hãy' 'cho' 'biết'
+
+##### WHICH #####
+S-WHICH[SEM=<WHQUERY(?wh(?n), ?np(?n), ?vp)>] -> FLIGHT-NP[SEM=?np, VAR=?n] WH-WHICH[SEM=?wh] FLIGHT-VP[SEM=?vp]
+S-WHICH[SEM=<WHQUERY(?wh(?n), ?np(?n), ?vp)>] -> S-DEMAND FLIGHT-NP[SEM=?np, VAR=?n, GAP=?wh] FLIGHT-VP[SEM=?vp, GAP=?wh]
+S-WHICH[SEM=<WHQUERY(?wh(?n), ?np, ?vp)>] -> FLIGHT-NP[SEM=?np] FLIGHT-VP[SEM=?vp, VAR=?n] WH-WHICH[SEM=?wh]
+
+WH-WHICH[SEM=<\x.WHICH(x)>] -> 'nào'
+
+##### WHEN #####
+S-WHEN[SEM=<WHQUERY(?wh(?t), ?np, ?vp)>] -> 'thời' 'gian' FLIGHT-NP[SEM=?np] FLIGHT-VP[SEM=?vp, VAR=?t] WH-WHEN[SEM=?wh]
+S-WHEN[SEM=<WHQUERY(?wh(?t), ?np, ?vp)>] -> FLIGHT-NP[SEM=?np] FLIGHT-VP[SEM=?vp, VAR=?t] WH-WHEN[SEM=?wh]
+
+WH-WHEN[SEM=<\x.WHEN(x)>] -> 'bao' 'lâu' | 'mấy' 'giờ'
+
+##### YESNO #####
+S-BIN[SEM=<BINQUERY(?np, ?vp)>] -> FLIGHT-NP[SEM=?np] FLIGHT-VP[SEM=?vp] 'phải' 'không'
+S-BIN[SEM=<BINQUERY(?np, ?vp)>] -> FLIGHT-NP[SEM=?np] 'có' FLIGHT-VP[SEM=?vp] 'không'
+S-BIN[SEM=<BINQUERY(?np, ?vp)>] -> 'có' FLIGHT-NP[SEM=?np] FLIGHT-VP[SEM=?vp] 'không'
+S-BIN[SEM=<BINQUERY(?which)>] -> 'có' S-WHICH[SEM=?which] 'không'
+
+##### FLIGHT-NP #####
+FLIGHT-NP[SEM=?np, VAR=?v] -> AIRPLANE-NP[SEM=?np, VAR=?v]
+FLIGHT-NP[SEM=<?n>, VAR=?v] -> AIRPLANE-N[SEM=?n, VAR=?v]
+FLIGHT-NP[SEM=<?np(?pp)>, VAR=?n] -> FLIGHT-NP[SEM=?np, VAR=?n] FLIGHT-PP[SEM=?pp]
+FLIGHT-NP[SEM=<FLIGHT>, VAR=<f2>, GAP=<\x.WHICH(x)>] -> 'mã_hiệu' 'các' 'máy_bay'
+FLIGHT-NP[SEM=<FLIGHT(?np)>, VAR=<f2>] -> 'máy_bay' 'của'  AIRLINE-NP[SEM=?np]
+
+AIRLINE-NP[SEM=<AIRLINE(?name)>] -> AIRLINE-NAME[SEM=?name] | AIRLINE-N AIRLINE-NAME[SEM=?name]
+AIRLINE-N[SEM=<\x.AIRLINE(x)>, VAR=<air1>] -> 'hãng_hàng_không'
+AIRLINE-NAME[SEM=<'VietJetAir'>] -> 'VietJet_Air'
+
+AIRPLANE-NP[SEM=<FLIGHT(?name)>] -> AIRPLANE-NAME-ID[SEM=?name] | AIRPLANE-N AIRPLANE-NAME-ID[SEM=?name]
+AIRPLANE-N[SEM=<\x.FLIGHT(x)>, VAR=<f1>] -> 'máy_bay'
+
+FLIGHT-PP[SEM=?sem, VAR=?v] -> FLIGHT-DEST[SEM=?sem, VAR=?v] | FLIGHT-SOURCE[SEM=?sem, VAR=?v] | FLIGHT-TIME[SEM=?sem, VAR=?v]
+#FLIGHT-PP[SEM=<?pp1 & ?pp2>] -> FLIGHT-PP[SEM=?pp1] FLIGHT-PP[SEM=?pp2]
+
+FLIGHT-DEST[SEM=<DEST(?np)>, VAR=?c] -> FLIGHT-V-DEST CITY-NP[SEM=?np, VAR=?c]
+FLIGHT-SOURCE[SEM=<SOURCE(?np)>] -> FLIGHT-V-SOURCE CITY-NP[SEM=?np]
+
+FLIGHT-FROM -> 'từ'
+FLIGHT-TO -> 'đến'
+
+FLIGHT-P-LOC -> 'ở'
+
+FLIGHT-V-DEST -> FLIGHT-TO | 'hạ_cánh' FLIGHT-P-LOC | 'hạ_cánh' FLIGHT-TO
+FLIGHT-V-SOURCE -> FLIGHT-FROM | 'xuất_phát' FLIGHT-P-LOC | 'xuất_phát' FLIGHT-FROM
+
+CITY-NP[SEM=<CITY(?name)>, VAR=?c] -> CITY-NAME[SEM=?name] | CITY-N[VAR=?c] CITY-NAME[SEM=?name]
+CITY-NP[SEM=<?city(?c)>, VAR=?c] -> DET CITY-N[SEM=?city, VAR=?c]
+CITY-N[SEM=<\x.CITY(x)>, VAR=<c1>] -> 'thành_phố' | 'TP.'
+CITY-NAME[SEM=<'KhanhHoa'>,VAR=<city1>] -> 'Khánh_Hòa'
+CITY-NAME[SEM=<'HaNoi'>,VAR=<city1>] -> 'Hà_Nội'
+CITY-NAME[SEM=<'DaNang'>,VAR=<city1>] -> 'Đà_Nẵng'
+CITY-NAME[SEM=<'HaiPhong'>,VAR=<city1>] -> 'Hải_Phòng'
+CITY-NAME[SEM=<'HoChiMinh'>,VAR=<city1>] -> 'Hồ_Chí_Minh' | 'HCMC'
+CITY-NAME[SEM=<'Hue'>,VAR=<city1>] -> 'Huế'
+
+##### FLIGHT-VP #####
+FLIGHT-VP[SEM=?pp, VAR=?v] -> FLIGHT-V FLIGHT-PP[SEM=?pp, VAR=?v]
+FLIGHT-VP[SEM=<?vp(?pp)>, VAR=?v] -> FLIGHT-VP[SEM=?vp, VAR=?v] FLIGHT-PP[SEM=?pp, VAR=?v]
+FLIGHT-VP[SEM=<?vp(?pp)>, VAR=?v] -> FLIGHT-VP[SEM=?vp, VAR=?v] 'và' FLIGHT-PP[SEM=?pp, VAR=?v]
+FLIGHT-VP[SEM=?pp, VAR=?v] -> FLIGHT-PP[SEM=?pp, VAR=?v]
+
+FLIGHT-V -> 'bay'
+
+##### DET #####
+DET -> 'những' | 'cái' | 'chiếc'
+
+##### TIME #####
+FLIGHT-TIME[SEM=<?tp(TIME(?t))>] -> TIME-P[SEM=?tp] TIME-MOD[SEM=?t]
+FLIGHT-TIME[SEM=<(?when(?t) & ?tp(TIME(?t)))>] -> TIME-P[SEM=?tp, VAR=?t] WH-WHEN[SEM=?when]
+FLIGHT-TIME[SEM=<AT(TIME(?t))>] -> TIME-V[SEM=?v] TIME-P[SEM=?tp] TIME-MOD[SEM=?t]
+FLIGHT-TIME[SEM=<AT(TIME(?t))>, VAR=?v] -> TIME-MOD[SEM=?t, VAR=?v] 
+FLIGHT-TIME[SEM=<?tp(TIME(?v))>, VAR=?v] -> TIME-P[SEM=?tp, VAR=?v]
+
+TIME-P[SEM=<AT>, VAR=<t1>] -> 'lúc'
+TIME-P[SEM=<IN>, VAR=<t1>] -> 'mất'
+TIME-P[SEM=<IN>, VAR=<t1>] -> 'trong'
+
+TIME-V -> 'bay'
+TIME-V[SEM=<LANDING>] -> 'hạ_cánh'
+TIME-V[SEM=<TAKEOFF>] -> 'cất_cánh' | 'khởi_hành'
+
+AIRPLANE-NAME-ID[SEM=<'VN1'>] -> 'VN1'
+AIRPLANE-NAME-ID[SEM=<'VN2'>] -> 'VN2'
+AIRPLANE-NAME-ID[SEM=<'VN3'>] -> 'VN3'
+AIRPLANE-NAME-ID[SEM=<'VN4'>] -> 'VN4'
+AIRPLANE-NAME-ID[SEM=<'VN5'>] -> 'VN5'
+AIRPLANE-NAME-ID[SEM=<'VJ1'>] -> 'VJ1'
+AIRPLANE-NAME-ID[SEM=<'VJ2'>] -> 'VJ2'
+AIRPLANE-NAME-ID[SEM=<'VJ3'>] -> 'VJ3'
+AIRPLANE-NAME-ID[SEM=<'VJ4'>] -> 'VJ4'
+AIRPLANE-NAME-ID[SEM=<'VJ5'>] -> 'VJ5'
+
+TIME-MOD[SEM=<'0:00HR'>,VAR=<t1>] -> '0:00HR' | '0:00' 'HR' | '0' 'giờ'
+TIME-MOD[SEM=<'0:30HR'>,VAR=<t1>] -> '0:30HR'
+TIME-MOD[SEM=<'1:00HR'>,VAR=<t1>] -> '1:00HR' | '1:00' 'HR' | '1' 'giờ'
+TIME-MOD[SEM=<'1:30HR'>,VAR=<t1>] -> '1:30HR'
+TIME-MOD[SEM=<'2:00HR'>,VAR=<t1>] -> '2:00HR' | '2:00' 'HR' | '2' 'giờ'
+TIME-MOD[SEM=<'2:30HR'>,VAR=<t1>] -> '2:30HR'
+TIME-MOD[SEM=<'3:00HR'>,VAR=<t1>] -> '3:00HR' | '3:00' 'HR' | '3' 'giờ'
+TIME-MOD[SEM=<'3:30HR'>,VAR=<t1>] -> '3:30HR'
+TIME-MOD[SEM=<'4:00HR'>,VAR=<t1>] -> '4:00HR' | '4:00' 'HR' | '4' 'giờ'
+TIME-MOD[SEM=<4:30HR>,VAR=<t1>] -> '4:30HR'
+TIME-MOD[SEM=<5:00HR>,VAR=<t1>] -> '5:00HR' | '5:00' 'HR' | '5' 'giờ'
+TIME-MOD[SEM=<5:30HR>,VAR=<t1>] -> '5:30HR'
+TIME-MOD[SEM=<6:00HR>,VAR=<t1>] -> '6:00HR' | '6:00' 'HR' | '6' 'giờ'
+TIME-MOD[SEM=<6:30HR>,VAR=<t1>] -> '6:30HR'
+TIME-MOD[SEM=<7:00HR>,VAR=<t1>] -> '7:00HR' | '7:00' 'HR' | '7' 'giờ'
+TIME-MOD[SEM=<7:30HR>,VAR=<t1>] -> '7:30HR'
+TIME-MOD[SEM=<8:00HR>,VAR=<t1>] -> '8:00HR' | '8:00' 'HR' | '8' 'giờ'
+TIME-MOD[SEM=<8:30HR>,VAR=<t1>] -> '8:30HR'
+TIME-MOD[SEM=<9:00HR>,VAR=<t1>] -> '9:00HR' | '9:00' 'HR' | '9' 'giờ'
+TIME-MOD[SEM=<9:30HR>,VAR=<t1>] -> '9:30HR'
+TIME-MOD[SEM=<10:00HR>,VAR=<t1>] -> '10:00HR' | '10:00' 'HR' | '10' 'giờ'
+TIME-MOD[SEM=<10:30HR>,VAR=<t1>] -> '10:30HR'
+TIME-MOD[SEM=<11:00HR>,VAR=<t1>] -> '11:00HR' | '11:00' 'HR' | '11' 'giờ'
+TIME-MOD[SEM=<11:30HR>,VAR=<t1>] -> '11:30HR'
+TIME-MOD[SEM=<12:00HR>,VAR=<t1>] -> '12:00HR' | '12:00' 'HR' | '12' 'giờ'
+TIME-MOD[SEM=<12:30HR>,VAR=<t1>] -> '12:30HR'
+TIME-MOD[SEM=<13:00HR>,VAR=<t1>] -> '13:00HR' | '13:00' 'HR' | '13' 'giờ'
+TIME-MOD[SEM=<'13:30HR'>,VAR=<t1>] -> '13:30HR'
+TIME-MOD[SEM=<'14:00HR'>,VAR=<t1>] -> '14:00HR' | '14:00' 'HR' | '14' 'giờ'
+TIME-MOD[SEM=<'14:30HR'>,VAR=<t1>] -> '14:30HR'
+TIME-MOD[SEM=<'15:00HR'>,VAR=<t1>] -> '15:00HR' | '15:00' 'HR' | '15' 'giờ'
+TIME-MOD[SEM=<'15:30HR'>,VAR=<t1>] -> '15:30HR'
+TIME-MOD[SEM=<16:00HR>,VAR=<t1>] -> '16:00HR' | '16:00' 'HR' | '16' 'giờ'
+TIME-MOD[SEM=<16:30HR>,VAR=<t1>] -> '16:30HR'
+TIME-MOD[SEM=<17:00HR>,VAR=<t1>] -> '17:00HR' | '17:00' 'HR' | '17' 'giờ'
+TIME-MOD[SEM=<17:30HR>,VAR=<t1>] -> '17:30HR'
+TIME-MOD[SEM=<18:00HR>,VAR=<t1>] -> '18:00HR' | '18:00' 'HR' | '18' 'giờ'
+TIME-MOD[SEM=<18:30HR>,VAR=<t1>] -> '18:30HR'
+TIME-MOD[SEM=<19:00HR>,VAR=<t1>] -> '19:00HR' | '19:00' 'HR' | '19' 'giờ'
+TIME-MOD[SEM=<19:30HR>,VAR=<t1>] -> '19:30HR'
+TIME-MOD[SEM=<20:00HR>,VAR=<t1>] -> '20:00HR' | '20:00' 'HR' | '20' 'giờ'
+TIME-MOD[SEM=<20:30HR>,VAR=<t1>] -> '20:30HR'
+TIME-MOD[SEM=<21:00HR>,VAR=<t1>] -> '21:00HR' | '21:00' 'HR' | '21' 'giờ'
+TIME-MOD[SEM=<21:30HR>,VAR=<t1>] -> '21:30HR'
+TIME-MOD[SEM=<22:00HR>,VAR=<t1>] -> '22:00HR' | '22:00' 'HR' | '22' 'giờ'
+TIME-MOD[SEM=<22:30HR>,VAR=<t1>] -> '22:30HR'
+TIME-MOD[SEM=<23:00HR>,VAR=<t1>] -> '23:00HR' | '23:00' 'HR' | '23' 'giờ'
+TIME-MOD[SEM=<23:30HR>,VAR=<t1>] -> '23:30HR'

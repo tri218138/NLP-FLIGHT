@@ -11,7 +11,7 @@ file_name=["output_a.txt",
            "output_e.txt"]
 
 def write_file(question_number, content):
-    file = open(file_name[question_number-1], 'w')
+    file = open(file_name[question_number-1], 'w', encoding='utf-8')
     file.write(content)
     file.close()
         
