@@ -1,25 +1,7 @@
-(S[SEM=<WHQUERY(WHICH(f2),FLIGHT(f2),SOURCE(CITY('HoChiMinh'),DEST(CITY('DaNang')),IN(TIME('1:00HR'))))>]
-  (S-WHICH[SEM=<WHQUERY(WHICH(f3),FLIGHT(f3),SOURCE(CITY('HoChiMinh'),DEST(CITY('DaNang')),IN(TIME('1:00HR'))))>]
-    (FLIGHT-NP[SEM=<\x.FLIGHT(x)>, VAR=<f2>]
-      (AIRPLANE-N[SEM=<\x.FLIGHT(x)>, VAR=<f1>] máy_bay))
-    (WH-WHICH[SEM=<\x.WHICH(x)>] nào)
-    (FLIGHT-VP[SEM=<SOURCE(CITY('HoChiMinh'),DEST(CITY('DaNang')),IN(TIME('1:00HR')))>, VAR=?v]
-      (FLIGHT-VP[SEM=<SOURCE(CITY('HoChiMinh'),DEST(CITY('DaNang')))>, VAR=?v]
-        (FLIGHT-VP[SEM=<SOURCE(CITY('HoChiMinh'))>, VAR=?v]
-          (FLIGHT-V[] bay)
-          (FLIGHT-PP[SEM=<SOURCE(CITY('HoChiMinh'))>, VAR=?v]
-            (FLIGHT-SOURCE[SEM=<SOURCE(CITY('HoChiMinh'))>]
-              (FLIGHT-V-SOURCE[] (FLIGHT-FROM[] từ))
-              (CITY-NP[SEM=<CITY('HoChiMinh')>, VAR=<c2>]
-                (CITY-N[SEM=<\x.CITY(x)>, VAR=<c1>] TP.)
-                (CITY-NAME[SEM=<'HoChiMinh'>, VAR=<city1>]
-                  Hồ_Chí_Minh)))))
-        (FLIGHT-PP[SEM=<DEST(CITY('DaNang'))>, VAR=?v]
-          (FLIGHT-DEST[SEM=<DEST(CITY('DaNang'))>, VAR=?c]
-            (FLIGHT-V-DEST[] (FLIGHT-TO[] đến))
-            (CITY-NP[SEM=<CITY('DaNang')>, VAR=?c]
-              (CITY-NAME[SEM=<'DaNang'>, VAR=<city1>] Đà_Nẵng)))))
-      (FLIGHT-PP[SEM=<IN(TIME('1:00HR'))>, VAR=?v]
-        (FLIGHT-TIME[SEM=<IN(TIME('1:00HR'))>]
-          (TIME-P[SEM=<IN>, VAR=<t1>] mất)
-          (TIME-MOD[SEM=<'1:00HR'>, VAR=<t1>] 1:00HR))))))
+(S[]
+  (NP[] (CNP[] (N[] máy_bay)) (QDET[SEM='WHICH'] nào))
+  (VP[]
+    (VP[] (V[] đến) (NP[] (CNP[] (N[] thành_phố) (NAME[] Huế))))
+    (PP[]
+      (P[] lúc)
+      (NP[] (CNP[] (TIME-MOD[SEM=<'13:30HR'>] 13:30HR))))))

@@ -1,0 +1,105 @@
+# Author: Doan Tran Cao Tri
+# University: Ho Chi Minh University of Technology
+# Id: 2010733
+# Contact: tri.doan218138@hcmut.edu.vn
+########################################################################
+# Simple Grammar without SEM
+########################################################################
+
+% start S
+S[SEM=<WHQUERY(?semnp, ?semvp)>] -> F-NP[SEM=?semnp, VAR=?v] F-VP[SEM=?semvp]
+S[SEM=<WHQUERY(?gap(?v), ?semnp(?v), ?semvp)>] -> 'hãy' 'cho' 'biết' F-NP[SEM=?semnp, VAR=?v, GAP=?gap] F-VP[SEM=?semvp]
+
+F-NP[SEM=<?semcnp>, VAR=?v] -> DET F-CNP[SEM=?semcnp, VAR=?v]
+F-NP[SEM=?semcnp, GAP=<\x.WH(x, WHICH)>, VAR=?v]-> F-CNP[SEM=?semcnp, VAR=?v]
+F-NP[SEM=<?wh(?v, ?n)>, VAR=?v] -> F-CNP[SEM=?n, VAR=?v] WH-QDET[SEM=?wh]
+F-NP[SEM=<?semnp & ?sempp>] -> F-NP[SEM=?semnp] F-PP[SEM=?sempp]
+
+F-CNP[SEM=?cnp, VAR=?v] -> FLIGHT-CNP[SEM=?cnp, VAR=?v] | CITY-CNP[SEM=?cnp, VAR=?v] | FLIGHT-ID-CNP[SEM=?cnp, VAR=?v]
+
+DET -> 'các'
+
+WH-QDET[SEM=<\x y.WH(x, y, WHICH)>] -> 'nào'
+
+FLIGHT-CNP[SEM=?f, VAR=?v] -> FLIGHT-N[SEM=?f, VAR=?v]
+FLIGHT-N[SEM=<FLIGHT1>, VAR=<f1>] -> 'máy_bay'
+FLIGHT-ID-CNP[SEM=?f, VAR=?v] -> FLIGHT-ID-N[SEM=?f, VAR=?v]
+FLIGHT-ID-N[SEM=<FLIGHT2>, VAR=<f2>] -> 'mã_hiệu' 'các' 'máy_bay'
+
+F-VP[SEM=<ARRIVE1(?semnp)>] -> 'đến' F-NP[SEM=?semnp]
+F-VP[SEM=<ARRIVE1(?sempp)>] -> 'hạ_cánh' F-PP[SEM=?sempp]
+F-VP[SEM=<?sempp>] -> 'bay' F-PP[SEM=?sempp]
+F-VP[SEM=<?semvp & ?sempp>] -> F-VP[SEM=?semvp] F-PP[SEM=?sempp]
+
+F-PP[SEM=?sem] -> F-LOC[SEM=?sem] | F-TIME[SEM=?sem]
+F-PP[SEM=<?sem1 & ?sem2>] -> F-PP[SEM=?sem1] F-PP[SEM=?sem2]
+
+F-LOC[SEM=?sem] -> F-DEST[SEM=?sem] | F-SOURCE[SEM=?sem] | 'ở' CITY-CNP[SEM=?sem]
+F-DEST[SEM=<DEST(?semcnp)>] -> 'đến' CITY-CNP[SEM=?semcnp]
+F-SOURCE[SEM=<SOURCE(?semcnp)>] -> 'từ' CITY-CNP[SEM=?semcnp]
+
+CITY-CNP -> DET CITY-CNP
+CITY-CNP[SEM=<NAME(?v, ?city_name)>] -> CITY-NAME[SEM=?city_name, VAR=?v]
+CITY-CNP[SEM=<NAME(?v, ?city_name)>] -> CITY-N[SEM=?city] CITY-NAME[SEM=?city_name, VAR=?v]
+CITY-N -> 'thành_phố' | 'TP.'
+
+##### CITY-NAME #####
+CITY-NAME[SEM=<'KhanhHoa'>,VAR=<city1>] -> 'Khánh_Hòa'
+CITY-NAME[SEM=<'HaNoi'>,VAR=<city1>] -> 'Hà_Nội'
+CITY-NAME[SEM=<'DaNang'>,VAR=<city1>] -> 'Đà_Nẵng'
+CITY-NAME[SEM=<'HaiPhong'>,VAR=<city1>] -> 'Hải_Phòng'
+CITY-NAME[SEM=<'HoChiMinh'>,VAR=<city1>] -> 'Hồ_Chí_Minh' | 'HCMC'
+CITY-NAME[SEM=<'Hue'>,VAR=<city1>] -> 'Huế'
+
+F-TIME[SEM=<AT(?time_num)>] -> 'lúc' TIME-NUM[SEM=?time_num]
+F-TIME[SEM=<IN(?time_num)>] -> 'mất' TIME-NUM[SEM=?time_num]
+
+##### TIME-NUM #####
+TIME-NUM[SEM=<'0:00HR'>,VAR=<t1>] -> '0:00HR' | '0:00' 'HR' | '0' 'giờ'
+TIME-NUM[SEM=<'0:30HR'>,VAR=<t1>] -> '0:30HR'
+TIME-NUM[SEM=<'1:00HR'>,VAR=<t1>] -> '1:00HR' | '1:00' 'HR' | '1' 'giờ'
+TIME-NUM[SEM=<'1:30HR'>,VAR=<t1>] -> '1:30HR'
+TIME-NUM[SEM=<'2:00HR'>,VAR=<t1>] -> '2:00HR' | '2:00' 'HR' | '2' 'giờ'
+TIME-NUM[SEM=<'2:30HR'>,VAR=<t1>] -> '2:30HR'
+TIME-NUM[SEM=<'3:00HR'>,VAR=<t1>] -> '3:00HR' | '3:00' 'HR' | '3' 'giờ'
+TIME-NUM[SEM=<'3:30HR'>,VAR=<t1>] -> '3:30HR'
+TIME-NUM[SEM=<'4:00HR'>,VAR=<t1>] -> '4:00HR' | '4:00' 'HR' | '4' 'giờ'
+TIME-NUM[SEM=<4:30HR>,VAR=<t1>] -> '4:30HR'
+TIME-NUM[SEM=<5:00HR>,VAR=<t1>] -> '5:00HR' | '5:00' 'HR' | '5' 'giờ'
+TIME-NUM[SEM=<5:30HR>,VAR=<t1>] -> '5:30HR'
+TIME-NUM[SEM=<6:00HR>,VAR=<t1>] -> '6:00HR' | '6:00' 'HR' | '6' 'giờ'
+TIME-NUM[SEM=<6:30HR>,VAR=<t1>] -> '6:30HR'
+TIME-NUM[SEM=<7:00HR>,VAR=<t1>] -> '7:00HR' | '7:00' 'HR' | '7' 'giờ'
+TIME-NUM[SEM=<7:30HR>,VAR=<t1>] -> '7:30HR'
+TIME-NUM[SEM=<8:00HR>,VAR=<t1>] -> '8:00HR' | '8:00' 'HR' | '8' 'giờ'
+TIME-NUM[SEM=<8:30HR>,VAR=<t1>] -> '8:30HR'
+TIME-NUM[SEM=<9:00HR>,VAR=<t1>] -> '9:00HR' | '9:00' 'HR' | '9' 'giờ'
+TIME-NUM[SEM=<9:30HR>,VAR=<t1>] -> '9:30HR'
+TIME-NUM[SEM=<10:00HR>,VAR=<t1>] -> '10:00HR' | '10:00' 'HR' | '10' 'giờ'
+TIME-NUM[SEM=<10:30HR>,VAR=<t1>] -> '10:30HR'
+TIME-NUM[SEM=<11:00HR>,VAR=<t1>] -> '11:00HR' | '11:00' 'HR' | '11' 'giờ'
+TIME-NUM[SEM=<11:30HR>,VAR=<t1>] -> '11:30HR'
+TIME-NUM[SEM=<12:00HR>,VAR=<t1>] -> '12:00HR' | '12:00' 'HR' | '12' 'giờ'
+TIME-NUM[SEM=<12:30HR>,VAR=<t1>] -> '12:30HR'
+TIME-NUM[SEM=<13:00HR>,VAR=<t1>] -> '13:00HR' | '13:00' 'HR' | '13' 'giờ'
+TIME-NUM[SEM=<'13:30HR'>,VAR=<t1>] -> '13:30HR'
+TIME-NUM[SEM=<'14:00HR'>,VAR=<t1>] -> '14:00HR' | '14:00' 'HR' | '14' 'giờ'
+TIME-NUM[SEM=<'14:30HR'>,VAR=<t1>] -> '14:30HR'
+TIME-NUM[SEM=<'15:00HR'>,VAR=<t1>] -> '15:00HR' | '15:00' 'HR' | '15' 'giờ'
+TIME-NUM[SEM=<'15:30HR'>,VAR=<t1>] -> '15:30HR'
+TIME-NUM[SEM=<16:00HR>,VAR=<t1>] -> '16:00HR' | '16:00' 'HR' | '16' 'giờ'
+TIME-NUM[SEM=<16:30HR>,VAR=<t1>] -> '16:30HR'
+TIME-NUM[SEM=<17:00HR>,VAR=<t1>] -> '17:00HR' | '17:00' 'HR' | '17' 'giờ'
+TIME-NUM[SEM=<17:30HR>,VAR=<t1>] -> '17:30HR'
+TIME-NUM[SEM=<18:00HR>,VAR=<t1>] -> '18:00HR' | '18:00' 'HR' | '18' 'giờ'
+TIME-NUM[SEM=<18:30HR>,VAR=<t1>] -> '18:30HR'
+TIME-NUM[SEM=<19:00HR>,VAR=<t1>] -> '19:00HR' | '19:00' 'HR' | '19' 'giờ'
+TIME-NUM[SEM=<19:30HR>,VAR=<t1>] -> '19:30HR'
+TIME-NUM[SEM=<20:00HR>,VAR=<t1>] -> '20:00HR' | '20:00' 'HR' | '20' 'giờ'
+TIME-NUM[SEM=<20:30HR>,VAR=<t1>] -> '20:30HR'
+TIME-NUM[SEM=<21:00HR>,VAR=<t1>] -> '21:00HR' | '21:00' 'HR' | '21' 'giờ'
+TIME-NUM[SEM=<21:30HR>,VAR=<t1>] -> '21:30HR'
+TIME-NUM[SEM=<22:00HR>,VAR=<t1>] -> '22:00HR' | '22:00' 'HR' | '22' 'giờ'
+TIME-NUM[SEM=<22:30HR>,VAR=<t1>] -> '22:30HR'
+TIME-NUM[SEM=<23:00HR>,VAR=<t1>] -> '23:00HR' | '23:00' 'HR' | '23' 'giờ'
+TIME-NUM[SEM=<23:30HR>,VAR=<t1>] -> '23:30HR'

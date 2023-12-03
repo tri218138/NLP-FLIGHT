@@ -70,6 +70,9 @@ FIX_WORDS = [
     "Hà Nội",
     "Khánh Hòa",
     "Hải Phòng",
+    "thời gian",
+    "phải không",
+    "bao lâu"
 ]
 
 
@@ -105,6 +108,7 @@ def get_query(index: str = "1"):
         11: "Có máy bay nào xuất phát từ Hải Phòng không ?",
         12: "Có máy bay nào bay từ Hải Phòng đến Khánh Hòa không?",
         13: "Máy bay nào xuất phát từ Tp.Hồ Chí Minh, lúc mấy giờ ?",
+        13.1: "Máy bay nào xuất phát từ Tp.Hồ Chí Minh, xuất phát lúc mấy giờ ?",
     }.get(float(index), 0.0)
 
 
