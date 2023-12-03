@@ -1,7 +1,0 @@
-(S[]
-  (NP[] (CNP[] (N[] máy_bay)) (QDET[SEM='WHICH'] nào))
-  (VP[]
-    (VP[] (V[] đến) (NP[] (CNP[] (N[] thành_phố) (NAME[] Huế))))
-    (PP[]
-      (P[] lúc)
-      (NP[] (CNP[] (TIME-MOD[SEM=<'13:30HR'>] 13:30HR))))))

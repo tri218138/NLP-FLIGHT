@@ -1,0 +1,14 @@
+(S[SEM=<WHQUERY((WHICH(f2) & FLIGHT(f2)),(DEST(CITY(NAME('Hue'))) & AT('13:30HR')))>]
+  (NP[SEM=<(WHICH(f3) & FLIGHT(f3))>]
+    (FLIGHT-CNP[SEM=<\f.FLIGHT(f)>, VAR=<f2>]
+      (FLIGHT-N[SEM=<\f.FLIGHT(f)>, VAR=<f1>] máy_bay))
+    (WHICH-QDET[SEM=<\x.WHICH(x)>] nào))
+  (VP[SEM=<(DEST(CITY(NAME('Hue'))) & AT('13:30HR'))>]
+    (VP[SEM=<DEST(CITY(NAME('Hue')))>]
+      đến
+      (CITY-CNP[SEM=<CITY(NAME('Hue'))>]
+        (CITY-N[SEM=<CITY>, VAR=<c1>] thành_phố)
+        (CITY-NAME[SEM=<NAME('Hue')>] Huế)))
+    (PP[SEM=<AT('13:30HR')>]
+      lúc
+      (TIME-MOD[SEM=<'13:30HR'>, VAR=<t1>] 13:30HR))))

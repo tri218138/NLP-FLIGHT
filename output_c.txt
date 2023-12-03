@@ -1,1 +1,0 @@
-WHQUERY(WH(f2 FLIGHT1 WHICH) (SOURCE(NAME(city1 'HoChiMinh')) & DEST(NAME(city1 'HaNoi'))))

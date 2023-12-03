@@ -1,0 +1,1 @@
+(PRINT-ALL ?f2 (MÁY_BAY ?f2) (ATIME ?f2 HUE 13:30HR) (DTIME ?f2 ?dl ?dt) (RUN-TIME ?f2 ?dl HUE ?rt))

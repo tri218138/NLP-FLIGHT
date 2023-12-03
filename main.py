@@ -1,15 +1,25 @@
 """
+Thanks Hoàng Lê Hải Thanh for baseline source
+publish from https://github.com/hoanglehaithanh/NLP2017_Assignment in English
 © 2017 Hoàng Lê Hải Thanh (Thanh Hoang Le Hai) aka GhostBB
 If there are any problems, contact me at mail@hoanglehaithanh.com or 1413492@hcmut.edu.vn 
 This project is under [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0) (Inherit from NLTK)
+
+# Author: Doan Tran Cao Tri
+# University: Ho Chi Minh University of Technology
+# Id: 2010733
+# Contact: tri.doan218138@hcmut.edu.vn
+########################################################################
+# Simple Grammar without SEM
+########################################################################
 """
 import re
 from nltk import grammar, parse
 import argparse
 
-from nlp_parser import parse_to_procedure
-from nlp_data import retrieve_result
-from nlp_file import write_file
+from Models.nlp_parser import parse_to_procedure
+from Models.nlp_data import retrieve_result
+from Models.nlp_file import write_file
 
 
 def main(args):
@@ -23,37 +33,40 @@ def main(args):
     write_file(1, str(nlp_grammar.grammar()))
 
     question = args.question
+    print(question)
 
     # Get parse tree
     print("-------------Parsed structure-------------")
     tree = nlp_grammar.parse_one(question.replace("?", "").split())
-    print(question)
     print(tree)
     write_file(2, str(tree))
+    write_file(3, str(tree))
 
     # Parse to logical form
     print("-------------Parsed logical form-------------")
-    print(question)
+    # print(question)
     logical_form = str(tree.label()["SEM"]).replace(",", " ")
     print(logical_form)
-    write_file(3, str(logical_form))
+    write_file(4, str(logical_form))
 
     # Get procedure semantics
     print("-------------Procedure semantics-------------")
     procedure_semantics = parse_to_procedure(tree)
-    print(procedure_semantics["str"])
-    write_file(4, procedure_semantics["str"])
+    for index, procedure_semantic in enumerate(procedure_semantics):
+        print(procedure_semantic["procedure"])
+        write_file(5, procedure_semantic["procedure"], index)
 
     # Retrive result:
     print("-------------Retrieved result-------------")
-    results = retrieve_result(procedure_semantics)
-    if len(results) == 0:
-        print("No result found!")
-    else:
-        for result in results:
-            print(result, end=" ", flush=True)
-        print("")
-        write_file(5, " ".join(results))
+    for index, procedure_semantic in enumerate(procedure_semantics):
+        results = retrieve_result(procedure_semantic)
+        if len(results) == 0:
+            print("No result found!")
+        else:
+            for result in results:
+                print(result, end=" ", flush=True)
+            print("")
+            write_file(6, " ".join(results) + "\n", index)
 
 
 FIX_WORDS = [
@@ -72,7 +85,7 @@ FIX_WORDS = [
     "Hải Phòng",
     "thời gian",
     "phải không",
-    "bao lâu"
+    "bao lâu",
 ]
 
 
@@ -104,8 +117,10 @@ def get_query(index: str = "1"):
         8: "Máy bay từ Hà Nội đến Khánh Hòa bay trong bao lâu?",
         8.1: "Máy bay bay từ Hà Nội đến Khánh Hòa trong bao lâu?",
         9: "Máy bay VJ1 xuất phát từ HCMC 10:00HR phải không ?",
+        9.1: "Máy bay VN1 xuất phát từ HCMC 10:00HR phải không ?",
         10: "Máy bay VN4 có xuất phát từ Đà Nẵng không ?",
         11: "Có máy bay nào xuất phát từ Hải Phòng không ?",
+        11.1: "Có máy bay nào xuất phát từ Hà Nội không ?",
         12: "Có máy bay nào bay từ Hải Phòng đến Khánh Hòa không?",
         13: "Máy bay nào xuất phát từ Tp.Hồ Chí Minh, lúc mấy giờ ?",
         13.1: "Máy bay nào xuất phát từ Tp.Hồ Chí Minh, xuất phát lúc mấy giờ ?",
@@ -118,13 +133,13 @@ if __name__ == "__main__":
     parser.add_argument(
         "--id",
         default=-1,
-        help="Question to be parsed. Default = 'Which flight to Huế city arrives at 20:00HR ?'",
+        help="Question to be parsed. Default = 'Máy bay nào đến thành phố Huế lúc 13:30HR ?'",
     )
 
     parser.add_argument(
         "--question",
         default=get_query(1),
-        help="Question to be parsed. Default = 'Which flight to Huế city arrives at 20:00HR ?'",
+        help="Question to be parsed. Default = 'Máy bay nào đến thành phố Huế lúc 13:30HR ?'",
     )
 
     parser.add_argument(
@@ -139,5 +154,5 @@ if __name__ == "__main__":
     except:
         pass
     args.question = preprocess_query(args.question)
-    print(args.question)
+    # print(args.question)
     main(args)
