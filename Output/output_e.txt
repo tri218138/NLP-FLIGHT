@@ -1,1 +1,1 @@
-(PRINT-ALL ?f2 (MÁY_BAY ?f2) (ATIME ?f2 HUE 13:30HR) (DTIME ?f2 ?dl ?dt) (RUN-TIME ?f2 ?dl HUE ?rt))
+(PRINT-ALL ?f2 (MÁY_BAY ?f2) (ATIME ?f2 ?al ?at) (DTIME ?f2 HCM t3) (RUN-TIME ?f2 HCM ?al ?rt))(PRINT-ALL ?t3 (MÁY_BAY ?f2) (ATIME ?f2 ?al ?at) (DTIME ?f2 HCM t3) (RUN-TIME ?f2 HCM ?al ?rt))
